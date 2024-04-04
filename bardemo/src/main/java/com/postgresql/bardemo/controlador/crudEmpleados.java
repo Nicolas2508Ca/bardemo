@@ -1,6 +1,7 @@
 package com.postgresql.bardemo.controlador;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.postgresql.bardemo.modelo.empleados;
 import com.postgresql.bardemo.repositorio.empleadosRepo;
@@ -14,8 +15,13 @@ public class crudEmpleados {
     private empleadosRepo empleadosRepo;
 
     @PostMapping("/empleados")
-    public empleados createEmpleado(@RequestBody empleados empleado) {
-        return empleadosRepo.save(empleado);
+    public ResponseEntity<empleados> createEmpleado(@RequestBody empleados empleado, @CookieValue(name = "rol", required = true) String valorRol) {
+    	if("1".equals(valorRol)) {
+    		empleadosRepo.save(empleado);
+    		return ResponseEntity.ok(empleado);
+    	}else {
+    		return ResponseEntity.badRequest().build();
+    	}
     }
 
     @GetMapping("/empleados/{documento}")

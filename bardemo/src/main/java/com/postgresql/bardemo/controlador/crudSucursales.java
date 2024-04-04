@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/sucursales")
+@RequestMapping("/sucursales")
 public class crudSucursales {
 
     @Autowired
@@ -35,11 +35,12 @@ public class crudSucursales {
 }
 
     @PostMapping
-    public sucursales createSucursal(@RequestBody sucursales sucursal) {
-        sucursales newSucursal = new sucursales();
-        newSucursal.setNombreSucursal(sucursal.getNombreSucursal());
-        newSucursal.setDireccionSucursal(sucursal.getDireccionSucursal());
-        return sucursalesRepo.save(newSucursal);
+    public ResponseEntity<sucursales> createSucursal(@RequestBody sucursales sucursal, @CookieValue(name = "rol", required = false) String valorRol) {
+    	if("1".equals(valorRol)) {
+    		sucursalesRepo.save(sucursal);
+    		return ResponseEntity.ok(sucursal);    		
+    	}
+    	return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/{id}")
