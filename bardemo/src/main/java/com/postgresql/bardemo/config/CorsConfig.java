@@ -16,8 +16,20 @@ public class CorsConfig {
 		CorsConfiguration config = new CorsConfiguration();
 		
 		config.setAllowCredentials(true);
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:300/Home/CrearSucursal"));
+		// Permitir solicitudes desde todos los orígenes
+        //config.setAllowedOrigins(Arrays.asList("*"));
+        config.setAllowedOriginPatterns(Arrays.asList("*"));
+
+        // Permitir todos los métodos HTTP (GET, POST, PUT, DELETE, etc.)
+        config.setAllowedMethods(Arrays.asList("*"));
+
+        // Permitir todos los encabezados
+        config.setAllowedHeaders(Arrays.asList("*"));
+
+        // Aplicar la configuración CORS a todas las rutas
         source.registerCorsConfiguration("/**", config);
+		
+        //source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
 	}
 }
