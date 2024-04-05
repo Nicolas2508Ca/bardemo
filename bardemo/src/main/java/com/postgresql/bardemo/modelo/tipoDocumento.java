@@ -17,4 +17,25 @@ public class tipoDocumento {
 
     @Column(name = "nombretipodoc")
     private String nombreTipoDoc;
+    
+    public tipoDocumento() {
+    	
+    }
+    public tipoDocumento(Integer idTipoDoc, String nombreTipoDoc) {
+    	this.idTipoDoc = idTipoDoc;
+    	this.nombreTipoDoc = nombreTipoDoc;
+    }
+	public Integer getIdTipoDoc() {
+		return idTipoDoc;
+	}
+	public void setIdTipoDoc(Integer idTipoDoc) {
+		this.idTipoDoc = idTipoDoc;
+	}
+	public String getNombreTipoDoc() {
+		return nombreTipoDoc;
+	}
+	public void setNombreTipoDoc(String nombreTipoDoc) {
+		this.nombreTipoDoc = nombreTipoDoc;
+	}
+    
 }
