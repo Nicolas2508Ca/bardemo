@@ -1,13 +1,8 @@
 package com.postgresql.bardemo.controlador;
 
-import org.apache.catalina.connector.Request;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpCookie;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +25,9 @@ public class login {
     @PostMapping("/login")
     public String loginfun(@RequestParam Integer documento, @RequestParam String contrasenia, HttpServletResponse response) {
         empleados empleados = empleadosRepo.findByDocumento(documento);
+        if(empleados.getIdRol() == 2 || empleados.getIdRol() == 3){
+        	return "No tienes permitido ingresar";
+        }
         if (empleados != null && empleados.getContrasenia().equals(contrasenia)) {
         	Cookie cookie = new Cookie("rol", empleados.getIdRol().toString());
         	cookie.setMaxAge(60 * 60 * 24); // 24 horas

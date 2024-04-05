@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/sucursales")
 public class crudSucursales {
@@ -36,10 +36,13 @@ public class crudSucursales {
 
     @PostMapping
     public ResponseEntity<sucursales> createSucursal(@RequestBody sucursales sucursal, @CookieValue(name = "rol", required = false) String valorRol) {
+    	System.out.println(valorRol);
     	if("1".equals(valorRol)) {
+    		System.out.println("Buena request");
     		sucursalesRepo.save(sucursal);
     		return ResponseEntity.ok(sucursal);    		
     	}
+    		System.out.println("mala request");
     	return ResponseEntity.badRequest().build();
     }
 

@@ -23,7 +23,10 @@ public class crudEmpleados {
     		return ResponseEntity.badRequest().build();
     	}
     }
-
+    @GetMapping("/empleados")
+    public List<empleados> obtenerEmpleados(){
+    	return empleadosRepo.findAll();
+    }
     @GetMapping("/empleados/{documento}")
     public empleados getEmpleado(@PathVariable Integer documento) {
         return empleadosRepo.findByDocumento(documento);
