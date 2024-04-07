@@ -1,15 +1,18 @@
 package com.postgresql.bardemo.modelo;
 
 import jakarta.persistence.Id; // Aquí está el cambio
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "empleado")
-public class empleados {
+public class Empleados {
     @Id
     private Integer documento;
     
@@ -19,17 +22,39 @@ public class empleados {
     private String telefono;
     private String contrasenia;
 
-    @Column(name = "idrol")
-    private Integer idRol;
+    @ManyToOne
+    @JoinColumn(name = "idrol", foreignKey = @ForeignKey(name = "empleados_idrol_fkey"))
+    private Rol idRol;
+    @ManyToOne
+    @JoinColumn(name = "idtipodoc", foreignKey = @ForeignKey(name = "empleados_idtipodoc_fkey"))
+    private TipoDocumento idTipoDoc;
+    @ManyToOne
+    @JoinColumn(name="idsucursal", foreignKey= @ForeignKey(name = "empleados_idsucursal_fkey"))
+    private Sucursales idSucursal;
 
-    @Column(name = "idtipodoc")
-    private Integer idTipoDoc;
-
-    @Column(name = "idsucursal")
-    private Integer idSucursal;
+    public Empleados() {}
+    
+    
 
 
-    public String getContrasenia() {
+	public Empleados(Integer documento, String nombre, String apellido, String email, String telefono,
+			String contrasenia, Rol idRol, TipoDocumento idTipoDoc, Sucursales idSucursal) {
+		super();
+		this.documento = documento;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+		this.telefono = telefono;
+		this.contrasenia = contrasenia;
+		this.idRol = idRol;
+		this.idTipoDoc = idTipoDoc;
+		this.idSucursal = idSucursal;
+	}
+
+
+
+
+	public String getContrasenia() {
         return this.contrasenia;
     }
 
@@ -77,27 +102,27 @@ public class empleados {
 		this.telefono = telefono;
 	}
 
-	public Integer getIdRol() {
+	public Rol getIdRol() {
 		return idRol;
 	}
 
-	public void setIdRol(Integer idRol) {
+	public void setIdRol(Rol idRol) {
 		this.idRol = idRol;
 	}
 
-	public Integer getIdTipoDoc() {
+	public TipoDocumento getIdTipoDoc() {
 		return idTipoDoc;
 	}
 
-	public void setIdTipoDoc(Integer idTipoDoc) {
+	public void setIdTipoDoc(TipoDocumento idTipoDoc) {
 		this.idTipoDoc = idTipoDoc;
 	}
 
-	public Integer getIdSucursal() {
+	public Sucursales getIdSucursal() {
 		return idSucursal;
 	}
 
-	public void setIdSucursal(Integer idSucursal) {
+	public void setIdSucursal(Sucursales idSucursal) {
 		this.idSucursal = idSucursal;
 	}
     
