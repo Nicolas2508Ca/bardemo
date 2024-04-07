@@ -16,19 +16,30 @@ public class Empleados {
     @Id
     private Integer documento;
     
+    @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
+    @Column(name = "apellido", length = 50, nullable = false)
     private String apellido;
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
+    @Column(name = "telefono", length = 20, nullable = false)
     private String telefono;
+    @Column(name = "contrasenia", length = 50, nullable = false)
     private String contrasenia;
 
     @ManyToOne
+    							/// Aca en foreign key se coloca el nombre de la relacion
+    							/// en la base de datos para que no de error
     @JoinColumn(name = "idrol", foreignKey = @ForeignKey(name = "empleados_idrol_fkey"))
     private Rol idRol;
     @ManyToOne
+    							// Aca en foreign key se coloca el nombre de la relacion
+    							// en la base de datos para que no de error
     @JoinColumn(name = "idtipodoc", foreignKey = @ForeignKey(name = "empleados_idtipodoc_fkey"))
     private TipoDocumento idTipoDoc;
     @ManyToOne
+    								// Aca en foreign key se coloca el nombre de la relacion
+									// en la base de datos para que no de error
     @JoinColumn(name="idsucursal", foreignKey= @ForeignKey(name = "empleados_idsucursal_fkey"))
     private Sucursales idSucursal;
 

@@ -11,16 +11,16 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "sucursal")
-public class sucursales {
+public class Sucursales {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idsucursal")
     private Integer idSucursal;
 
-    @Column(name = "nombresucursal")
+    @Column(name = "nombresucursal", length = 100, nullable = false)
     private String nombreSucursal;
 
-    @Column(name = "direccionsucursal")
+    @Column(name = "direccionsucursal", length = 200, nullable = false)
     private String direccionSucursal;
 
     public Integer getIdSucursal() {

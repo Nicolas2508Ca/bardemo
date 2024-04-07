@@ -9,19 +9,19 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "Rol")
-public class cargo {
+public class Rol {
 
     @Id
     @Column(name = "idrol")
     private Integer idRol;
 
-    @Column(name = "nombrerol")
+    @Column(name = "nombrerol", length= 50, nullable = false)
     private String nombreRol;
     
-    public cargo() {
+    public Rol() {
     	
     }
-    public cargo(Integer idRol, String nombreRol) {
+    public Rol(Integer idRol, String nombreRol) {
     	this.idRol = idRol;
     	this.nombreRol = nombreRol;
     }
