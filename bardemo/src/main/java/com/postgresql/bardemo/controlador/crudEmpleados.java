@@ -3,7 +3,7 @@ package com.postgresql.bardemo.controlador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.postgresql.bardemo.modelo.empleados;
+import com.postgresql.bardemo.modelo.Empleados;
 import com.postgresql.bardemo.repositorio.empleadosRepo;
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class crudEmpleados {
     private empleadosRepo empleadosRepo;
 
     @PostMapping("/empleados")
-    public ResponseEntity<empleados> createEmpleado(@RequestBody empleados empleado, @CookieValue(name = "rol", required = true) String valorRol) {
+    public ResponseEntity<Empleados> createEmpleado(@RequestBody Empleados empleado, @CookieValue(name = "rol", required = true) String valorRol) {
     	if("1".equals(valorRol)) {
     		empleadosRepo.save(empleado);
     		return ResponseEntity.ok(empleado);
@@ -24,22 +24,22 @@ public class crudEmpleados {
     	}
     }
     @GetMapping("/empleados")
-    public List<empleados> obtenerEmpleados(){
+    public List<Empleados> obtenerEmpleados(){
     	return empleadosRepo.findAll();
     }
     @GetMapping("/empleados/{documento}")
-    public empleados getEmpleado(@PathVariable Integer documento) {
+    public Empleados getEmpleado(@PathVariable Integer documento) {
         return empleadosRepo.findByDocumento(documento);
     }
 
     @GetMapping("/sucursales/{idSucursal}/empleados")
-    public List<empleados> getEmpleadosBySucursal(@PathVariable Integer idSucursal) {
+    public List<Empleados> getEmpleadosBySucursal(@PathVariable Integer idSucursal) {
         return empleadosRepo.findByIdSucursal(idSucursal);
     }
 
     @PutMapping("/empleados/{id}")
-    public empleados updateEmpleado(@PathVariable Integer id, @RequestBody empleados empleado) {
-        empleados existingEmpleado = empleadosRepo.findById(id).orElse(null);
+    public Empleados updateEmpleado(@PathVariable Integer id, @RequestBody Empleados empleado) {
+        Empleados existingEmpleado = empleadosRepo.findById(id).orElse(null);
         if (existingEmpleado != null) {
             existingEmpleado.setNombre(empleado.getNombre());
             existingEmpleado.setApellido(empleado.getApellido());
