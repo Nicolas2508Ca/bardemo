@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.postgresql.bardemo.modelo.empleados;
+import com.postgresql.bardemo.modelo.Empleados;
 import com.postgresql.bardemo.repositorio.empleadosRepo;
 
 import jakarta.servlet.http.Cookie;
@@ -24,8 +24,8 @@ public class login {
 
     @PostMapping("/login")
     public String loginfun(@RequestParam Integer documento, @RequestParam String contrasenia, HttpServletResponse response) {
-        empleados empleados = empleadosRepo.findByDocumento(documento);
-        if(empleados.getIdRol() == 2 || empleados.getIdRol() == 3){
+        Empleados empleados = empleadosRepo.findByDocumento(documento);
+        if(empleados.getIdRol().getIdRol() == 2 || empleados.getIdRol().getIdRol() == 3){
         	return "No tienes permitido ingresar";
         }
         if (empleados != null && empleados.getContrasenia().equals(contrasenia)) {
