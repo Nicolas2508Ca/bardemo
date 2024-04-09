@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-import com.postgresql.bardemo.modelo.cargo;
+import com.postgresql.bardemo.modelo.Rol;
 import com.postgresql.bardemo.repositorio.cargoRepo;
 import java.util.List;
 
@@ -20,17 +20,17 @@ import java.util.List;
 public class getCargo {
 
     @Autowired
-    private cargoRepo cargoRepo;
+    private cargoRepo rolRepo;
 
     @GetMapping()
-    public List<cargo> getAllCargo() {
-        return cargoRepo.findAll();
+    public List<Rol> getAllCargo() {
+        return rolRepo.findAll();
     }
     @PostMapping
-    public ResponseEntity<cargo> guardarCargo(@RequestBody cargo cargo){
+    public ResponseEntity<Rol> guardarCargo(@RequestBody Rol rol){
     	try {
-    		cargoRepo.save(cargo);
-    		return ResponseEntity.ok(cargo);
+    		rolRepo.save(rol);
+    		return ResponseEntity.ok(rol);
     	}catch(Exception e) {
     		return ResponseEntity.badRequest().build();
     	}
