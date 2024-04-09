@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.postgresql.bardemo.modelo.sucursales;
+import com.postgresql.bardemo.modelo.Sucursales;
 import com.postgresql.bardemo.repositorio.sucursalesRepo;
 import java.util.Optional;
 
@@ -19,13 +19,13 @@ public class crudSucursales {
     private sucursalesRepo sucursalesRepo;
 
     @GetMapping
-    public List<sucursales> getAllSucursales() {
+    public List<Sucursales> getAllSucursales() {
         return sucursalesRepo.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<sucursales> getSucursalById(@PathVariable Integer id) {
-    Optional<sucursales> sucursalData = sucursalesRepo.findById(id);
+    public ResponseEntity<Sucursales> getSucursalById(@PathVariable Integer id) {
+    Optional<Sucursales> sucursalData = sucursalesRepo.findById(id);
 
     if (sucursalData.isPresent()) {
         return new ResponseEntity<>(sucursalData.get(), HttpStatus.OK);
@@ -35,7 +35,7 @@ public class crudSucursales {
 }
 
     @PostMapping
-    public ResponseEntity<sucursales> createSucursal(@RequestBody sucursales sucursal, @CookieValue(name = "rol", required = false) String valorRol) {
+    public ResponseEntity<Sucursales> createSucursal(@RequestBody Sucursales sucursal, @CookieValue(name = "rol", required = false) String valorRol) {
     	System.out.println(valorRol);
     	if("1".equals(valorRol)) {
     		System.out.println("Buena request");
@@ -47,7 +47,7 @@ public class crudSucursales {
     }
 
     @PutMapping("/{id}")
-    public sucursales updateSucursal(@PathVariable Integer id, @RequestBody sucursales sucursalActualizada) {
+    public Sucursales updateSucursal(@PathVariable Integer id, @RequestBody Sucursales sucursalActualizada) {
         return sucursalesRepo.findById(id)
                 .map(sucursal -> {
                     sucursal.setNombreSucursal(sucursalActualizada.getNombreSucursal());
