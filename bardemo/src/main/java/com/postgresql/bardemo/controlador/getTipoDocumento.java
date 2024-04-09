@@ -10,7 +10,7 @@ import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-import com.postgresql.bardemo.modelo.tipoDocumento;
+import com.postgresql.bardemo.modelo.TipoDocumento;
 import com.postgresql.bardemo.repositorio.tipoDocumentoRepo;
 import java.util.List;
 
@@ -23,11 +23,11 @@ public class getTipoDocumento {
     private tipoDocumentoRepo tipoDocumentoRepo;
 
     @GetMapping()
-    public List<tipoDocumento> getAllTipoDocumento() {
+    public List<TipoDocumento> getAllTipoDocumento() {
         return tipoDocumentoRepo.findAll();
     }
     @PostMapping
-    public ResponseEntity<tipoDocumento> guardarTipoDocumento(@RequestBody tipoDocumento tipo){
+    public ResponseEntity<TipoDocumento> guardarTipoDocumento(@RequestBody TipoDocumento tipo){
     	try {
     		tipoDocumentoRepo.save(tipo);
     		return ResponseEntity.ok(tipo);
