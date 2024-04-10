@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.postgresql.bardemo.modelo.Empleados;
+import com.postgresql.bardemo.modelo.Sucursales;
 import com.postgresql.bardemo.repositorio.empleadosRepo;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-public class crudEmpleados {
+public class EmpleadosController {
 
     @Autowired
     private empleadosRepo empleadosRepo;
@@ -33,7 +34,7 @@ public class crudEmpleados {
     }
 
     @GetMapping("/sucursales/{idSucursal}/empleados")
-    public List<Empleados> getEmpleadosBySucursal(@PathVariable Integer idSucursal) {
+    public List<Empleados> getEmpleadosBySucursal(@PathVariable Sucursales idSucursal) {
         return empleadosRepo.findByIdSucursal(idSucursal);
     }
 

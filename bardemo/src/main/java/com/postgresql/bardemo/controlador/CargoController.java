@@ -17,7 +17,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/cargo")
-public class getCargo {
+public class CargoController {
 
     @Autowired
     private cargoRepo rolRepo;
