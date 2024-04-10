@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @CrossOrigin
 @RestController
-public class login {
+public class LoginController {
     @Autowired
     private empleadosRepo empleadosRepo;
 

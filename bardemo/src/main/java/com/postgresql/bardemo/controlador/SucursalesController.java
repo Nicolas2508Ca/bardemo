@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sucursales")
-public class crudSucursales {
+public class SucursalesController {
 
     @Autowired
     private sucursalesRepo sucursalesRepo;

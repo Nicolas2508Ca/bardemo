@@ -17,7 +17,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/tipodocumento")
-public class getTipoDocumento {
+public class TipoDocumentoController {
 
     @Autowired
     private tipoDocumentoRepo tipoDocumentoRepo;
