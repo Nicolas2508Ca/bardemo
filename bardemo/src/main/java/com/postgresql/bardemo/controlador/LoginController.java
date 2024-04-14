@@ -25,11 +25,12 @@ public class LoginController {
     @PostMapping("/login")
     public String loginfun(@RequestParam Integer documento, @RequestParam String contrasenia, HttpServletResponse response) {
         Empleados empleados = empleadosRepo.findByDocumento(documento);
+
         if(empleados.getIdRol().getIdRol() == 2 || empleados.getIdRol().getIdRol() == 3){
         	return "No tienes permitido ingresar";
         }
         if (empleados != null && empleados.getContrasenia().equals(contrasenia)) {
-        	Cookie cookie = new Cookie("rol", empleados.getIdRol().toString());
+        	Cookie cookie = new Cookie("rol", empleados.getIdRol().getIdRol().toString());
         	cookie.setMaxAge(60 * 60 * 24); // 24 horas
         	cookie.setPath("/");
         	response.addCookie(cookie);
@@ -45,6 +46,7 @@ public class LoginController {
     	
     	cookie.setPath("/");
     	response.addCookie(cookie);
+
     	return "Haz salido de la sesión";
     }
 }

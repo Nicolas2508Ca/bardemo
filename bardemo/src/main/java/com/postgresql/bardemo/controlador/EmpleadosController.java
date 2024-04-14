@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.postgresql.bardemo.modelo.Empleados;
+import com.postgresql.bardemo.modelo.Rol;
 import com.postgresql.bardemo.modelo.Sucursales;
 import com.postgresql.bardemo.repositorio.empleadosRepo;
 import java.util.List;
@@ -21,6 +22,7 @@ public class EmpleadosController {
     		empleadosRepo.save(empleado);
     		return ResponseEntity.ok(empleado);
     	}else {
+    		System.out.println("No tiene permisos");
     		return ResponseEntity.badRequest().build();
     	}
     }
