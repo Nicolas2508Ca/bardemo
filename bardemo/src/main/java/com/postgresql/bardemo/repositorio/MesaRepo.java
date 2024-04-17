@@ -1,0 +1,22 @@
+package com.postgresql.bardemo.repositorio;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.postgresql.bardemo.modelo.Mesa;
+import com.postgresql.bardemo.modelo.Sucursales;
+
+@Repository
+public interface MesaRepo extends JpaRepository<Mesa, Integer>{
+	
+	//@Procedure(procedureName = "obtener_mesas_por_sucursal")
+	@Query("SELECT m FROM Mesa m WHERE m.idSucursal.idSucursal = :idSucursal")
+	List<Mesa> findByIdSucursal(@Param("idSucursal") Integer idSucursal);
+	
+}

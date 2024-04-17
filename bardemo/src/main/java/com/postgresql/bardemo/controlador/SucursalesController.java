@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.postgresql.bardemo.modelo.Mesa;
 import com.postgresql.bardemo.modelo.Sucursales;
+import com.postgresql.bardemo.repositorio.MesaRepo;
 import com.postgresql.bardemo.repositorio.sucursalesRepo;
 import java.util.Optional;
 
@@ -17,6 +20,8 @@ public class SucursalesController {
 
     @Autowired
     private sucursalesRepo sucursalesRepo;
+    @Autowired
+    private MesaRepo mesaRepo;
 
     @GetMapping
     public List<Sucursales> getAllSucursales() {
@@ -33,7 +38,15 @@ public class SucursalesController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
-
+    @GetMapping("/{idSucursal}/mesas")
+	public ResponseEntity<List<Mesa>> obtenerMesasSucursal(@PathVariable Integer idSucursal){
+		List<Mesa> mesas = mesaRepo.findByIdSucursal(idSucursal);
+		if(!mesas.isEmpty()) {
+			return ResponseEntity.ok(mesas);
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+	}
     @PostMapping
     public ResponseEntity<Sucursales> createSucursal(@RequestBody Sucursales sucursal, @CookieValue(name = "rol", required = false) String valorRol) {
     	System.out.println(valorRol);
