@@ -38,24 +38,13 @@ public class SucursalesController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
-    @GetMapping("/{idSucursal}/mesas")
-	public ResponseEntity<List<Mesa>> obtenerMesasSucursal(@PathVariable Integer idSucursal){
-		List<Mesa> mesas = mesaRepo.findByIdSucursal(idSucursal);
-		if(!mesas.isEmpty()) {
-			return ResponseEntity.ok(mesas);
-		}else {
-			return ResponseEntity.notFound().build();
-		}
-	}
     @PostMapping
     public ResponseEntity<Sucursales> createSucursal(@RequestBody Sucursales sucursal, @CookieValue(name = "rol", required = false) String valorRol) {
     	System.out.println(valorRol);
     	if("1".equals(valorRol)) {
-    		System.out.println("Buena request");
     		sucursalesRepo.save(sucursal);
     		return ResponseEntity.ok(sucursal);    		
     	}
-    		System.out.println("mala request");
     	return ResponseEntity.badRequest().build();
     }
 
