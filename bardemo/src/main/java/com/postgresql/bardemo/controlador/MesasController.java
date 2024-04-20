@@ -15,19 +15,22 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.postgresql.bardemo.modelo.Mesa;
 import com.postgresql.bardemo.repositorio.MesaRepo;
 import com.postgresql.bardemo.servicios.ActualizarObjetoServicio;
 
-@RestController("/mesas")
+@RestController
+@RequestMapping("/mesas")
 public class MesasController {
 
 	@Autowired
 	private MesaRepo mesaRepo;
 	@Autowired
 	private ActualizarObjetoServicio actualizarObjeto;
+	
 	@GetMapping("mesas/{idSucursal}")
 	public ResponseEntity<List<Mesa>> obtenerMesasSucursal(@PathVariable Integer idSucursal){
 		List<Mesa> mesas = mesaRepo.findByIdSucursal(idSucursal);

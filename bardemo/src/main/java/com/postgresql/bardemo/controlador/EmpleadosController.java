@@ -20,6 +20,8 @@ public class EmpleadosController {
     private empleadosRepo empleadosRepo;
     @Autowired
     private ActualizarObjetoServicio actualizarObjeto;
+    
+    
     @PostMapping("/empleados")
     public ResponseEntity<Empleados> createEmpleado(@RequestBody Empleados empleado, @CookieValue(name = "rol", required = true) String valorRol) {
     	if("1".equals(valorRol)) {
