@@ -31,7 +31,7 @@ public class MesasController {
 	@Autowired
 	private ActualizarObjetoServicio actualizarObjeto;
 	
-	@GetMapping("mesas/{idSucursal}")
+	@GetMapping("/{idSucursal}")
 	public ResponseEntity<List<Mesa>> obtenerMesasSucursal(@PathVariable Integer idSucursal){
 		List<Mesa> mesas = mesaRepo.findByIdSucursal(idSucursal);
 		if(!mesas.isEmpty()) {
