@@ -33,6 +33,10 @@ public class ExistenciasSucursal {
 			this.fechaActualizacion = LocalDateTime.now();
 		}
 	}
+	@PreUpdate
+	public void preUpdate() {
+		this.fechaActualizacion = LocalDateTime.now();
+	}
 	
 	public ExistenciasSucursal() {}
 
