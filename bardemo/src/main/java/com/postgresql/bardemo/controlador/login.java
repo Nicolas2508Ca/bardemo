@@ -26,13 +26,20 @@ public class login {
     public String loginfun(@RequestParam Integer documento, @RequestParam String contrasenia, HttpServletResponse response) {
         empleados empleados = empleadosRepo.findByDocumento(documento);
         if (empleados != null && empleados.getContrasenia().equals(contrasenia)) {
-            if(empleados.getIdRol() == 2 || empleados.getIdRol() == 3){
-                return "No tienes permitido ingresar";
+            if(empleados.getIdRol() == 1){
+                Cookie cookie = new Cookie("rol", empleados.getIdRol().toString());
+                cookie.setMaxAge(60 * 60 * 24); // 24 horas
+                cookie.setPath("/");
+                response.addCookie(cookie);
+                return "Inicio de sesión exitoso admin";
             }
-            Cookie cookie = new Cookie("rol", empleados.getIdRol().toString());
-            cookie.setMaxAge(60 * 60 * 24); // 24 horas
-            cookie.setPath("/");
-            response.addCookie(cookie);
+            if(empleados.getIdRol() == 2){
+                Cookie cookie = new Cookie("rol", empleados.getIdRol().toString());
+                cookie.setMaxAge(60 * 60 * 24); // 24 horas
+                cookie.setPath("/HomeMesero");
+                response.addCookie(cookie);
+                return "Inicio de sesión exitoso mesero";
+            }
             return "Inicio de sesión exitoso";
         } else {
             return "Usuario o contraseña incorrecta";
