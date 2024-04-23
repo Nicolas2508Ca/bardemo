@@ -24,22 +24,28 @@ public class LoginController {
 
     @PostMapping("/login")
     public String loginfun(@RequestParam Integer documento, @RequestParam String contrasenia, HttpServletResponse response) {
-        Empleados empleados = empleadosRepo.findByDocumento(documento)
-        		.orElseThrow(() -> new ResourceNotFoundException("Empleado no encontrado"));
-
-        if(empleados.getIdRol().getIdRol() == 2 || empleados.getIdRol().getIdRol() == 3){
-        	return "No tienes permitido ingresar";
-        }
+        Empleados empleados = empleadosRepo.findByDocumento(documento);
         if (empleados != null && empleados.getContrasenia().equals(contrasenia)) {
-        	Cookie cookie = new Cookie("rol", empleados.getIdRol().getIdRol().toString());
-        	cookie.setMaxAge(60 * 60 * 24); // 24 horas
-        	cookie.setPath("/");
-        	response.addCookie(cookie);
+            if(empleados.getIdRol().getIdRol() == 1){
+                Cookie cookie = new Cookie("rol", empleados.getIdRol().toString());
+                cookie.setMaxAge(60 * 60 * 24); // 24 horas
+                cookie.setPath("/");
+                response.addCookie(cookie);
+                return "Inicio de sesión exitoso admin";
+            }
+            if(empleados.getIdRol().getIdRol() == 2){
+                Cookie cookie = new Cookie("rol", empleados.getIdRol().toString());
+                cookie.setMaxAge(60 * 60 * 24); // 24 horas
+                cookie.setPath("/HomeMesero");
+                response.addCookie(cookie);
+                return "Inicio de sesión exitoso mesero";
+            }
             return "Inicio de sesión exitoso";
         } else {
             return "Usuario o contraseña incorrecta";
         }
     }
+    
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
     	Cookie cookie = new Cookie("rol", null);
