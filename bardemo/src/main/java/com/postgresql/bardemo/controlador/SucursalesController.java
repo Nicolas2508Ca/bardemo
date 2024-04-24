@@ -40,7 +40,7 @@ public class SucursalesController {
 }
     @PostMapping
     public ResponseEntity<Sucursales> createSucursal(@RequestBody Sucursales sucursal, @CookieValue(name = "rol", required = false) String valorRol) {
-    	System.out.println(valorRol);
+    	System.out.println(sucursal.getIdSucursal());
     	if("1".equals(valorRol)) {
     		sucursalesRepo.save(sucursal);
     		return ResponseEntity.ok(sucursal);    		
