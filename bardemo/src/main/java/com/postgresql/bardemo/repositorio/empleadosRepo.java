@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface empleadosRepo extends JpaRepository<Empleados, Integer> {
-    Empleados findByDocumento(Integer documento);
+    Optional<Empleados> findByDocumento(Integer documento);
     List<Empleados> findByIdSucursal(Sucursales idSucursal);
 }

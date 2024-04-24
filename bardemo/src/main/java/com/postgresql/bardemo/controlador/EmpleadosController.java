@@ -24,6 +24,8 @@ public class EmpleadosController {
     
     @PostMapping("/empleados")
     public ResponseEntity<Empleados> createEmpleado(@RequestBody Empleados empleado, @CookieValue(name = "rol", required = true) String valorRol) {
+        System.out.println("Valor cookie: " + valorRol);
+        System.out.println(empleado.getIdRol().getIdRol());
     	if("1".equals(valorRol)) {
     		empleadosRepo.save(empleado);
     		return ResponseEntity.ok(empleado);
