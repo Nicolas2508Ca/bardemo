@@ -8,6 +8,7 @@ public class BardemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BardemoApplication.class, args);
+		
 	}
 
 }
