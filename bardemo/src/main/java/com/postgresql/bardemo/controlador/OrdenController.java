@@ -36,38 +36,10 @@ public class OrdenController {
 	private empleadosRepo empleadoRepo;
 	
 	@PostMapping("/crear")
-	public ResponseEntity<Orden> crearOrden(@RequestBody CrearOrdenRequest request){
-		Orden orden = new Orden();
-		Empleados empleado = empleadoRepo.findByDocumento(request.getEmpleado().getDocumento())
-				.orElseThrow(() -> new ResourceNotFoundException("Empleado no encontrado con id " + request.getEmpleado().getDocumento()));
-		orden.setMesa(request.getMesa());
-		orden.setSucursal(request.getSucursal());
-		orden.setIdEmpleado(empleado);
-		orden.setEstadoOrden(request.getEstadoOrden());
-		orden = ordenRepo.save(orden);
-		
-		Integer totalOrden = 0;
-		for(DetalleOrdenRequest detalle : request.getDetalles()) {
-			DetalleOrden detalleOrden = new DetalleOrden();
-			Productos producto = productoRepo.findById(detalle.getProducto().getIdProducto())
-					.orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
-			detalleOrden.setOrden(orden);
-			detalleOrden.setProducto(producto);
-			detalleOrden.setCantidad(detalle.getCantidad());
-			
-			Integer subtotalDetalle = producto.getPrecioProducto() * detalle.getCantidad();
-			detalleOrden.setSubtotal(subtotalDetalle);
-			
-			totalOrden+= subtotalDetalle;
-			
-			detalleOrdenRepo.save(detalleOrden);
-			
-		}
-		orden.setTotalOrden(totalOrden);
-		ordenRepo.save(orden);
-		
-		return ResponseEntity.ok(orden);
-	}
+    public ResponseEntity<Orden> crearOrden(@RequestBody Orden orden){
+        Orden nuevaOrden = ordenRepo.save(orden);
+        return ResponseEntity.ok(nuevaOrden);
+    }
 	
 	@GetMapping("/{idOrden}")
 	public ResponseEntity<?> obtenerOrdenes(@PathVariable Long idOrden){
@@ -89,11 +61,11 @@ public class OrdenController {
 			Map<String, Object> response = new HashMap<>();
 			
 			response.put("idOrden", orden.getIdOrden());
-			response.put("totalOrden", orden.getTotalOrden());
+			response.put("totalOrden", orden.getSubtotal());
 			response.put("mesa", orden.getMesa());
-			response.put("sucursal", orden.getIdOrden());
-			response.put("estadoOrden", orden.getEstadoOrden());
-			response.put("idEmpleado", orden.getIdEmpleado());
+			response.put("sucursal", orden.getIdOrden()); 
+			response.put("estadoOrden", orden.getIdEstado());
+			response.put("idEmpleado", orden.getMesero());
 			response.put("detalles", detalles);
 			
 			return ResponseEntity.ok(response);

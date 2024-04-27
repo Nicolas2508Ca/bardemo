@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 public class EstadoOrden {
 	
 	@Id
-	@Column(name = "Id_Estado")
+	@Column(name = "idestado")
 	private Integer idEstado;
 	
-	@Column(name = "Nombre_Estado", length=50)
+	@Column(name = "nombreestado", length=50)
 	private String nombreEstado;
 	
 	public EstadoOrden() {

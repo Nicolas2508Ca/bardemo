@@ -7,40 +7,40 @@ import jakarta.persistence.*;
 public class Orden {
 
 	@Id
-	@Column(name = "Id_Orden")
+	@Column(name = "idorden")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idOrden;
 	
-	@Column(name = "Total_Orden")
-	private Integer totalOrden;
+	@Column(name = "subtotal")
+	private Integer subtotal;
 	
 	@ManyToOne
-	@JoinColumn(name = "Mesa", foreignKey = @ForeignKey(name = "orden_idMesa_fkey"))
+	@JoinColumn(name = "mesa", foreignKey = @ForeignKey(name = "orden_idMesa_fkey"))
 	private Mesa mesa;
 	
 	@ManyToOne
-	@JoinColumn(name = "Id_Sucursal", foreignKey = @ForeignKey(name = "orden_idSucursal_fkey"))
+	@JoinColumn(name = "idsucursal", foreignKey = @ForeignKey(name = "orden_idSucursal_fkey"))
 	private Sucursales sucursal;
 	
 	@ManyToOne
-	@JoinColumn(name = "Id_Estado", foreignKey = @ForeignKey(name = "orden_idEstadoOrden_fkey"))
-	private EstadoOrden estadoOrden;
+	@JoinColumn(name = "idestado", foreignKey = @ForeignKey(name = "orden_idEstadoOrden_fkey"))
+	private EstadoOrden idEstado;
 	
 	@ManyToOne
-	@JoinColumn(name = "Mesero", foreignKey = @ForeignKey(name = "orden_idEmpleado_fkey"))
-	private Empleados idEmpleado;
+	@JoinColumn(name = "mesero", foreignKey = @ForeignKey(name = "orden_documento_fkey"))
+	private Empleados mesero;
 	
 	public Orden() {}
 
-	public Orden(Long idOrden, Integer totalOrden, Mesa mesa, Sucursales sucursal, EstadoOrden estadoOrden,
-			Empleados idEmpleado) {
+	public Orden(Long idOrden, Integer subtotal, Mesa mesa, Sucursales sucursal, EstadoOrden idEstado,
+			Empleados mesero) {
 		super();
 		this.idOrden = idOrden;
-		this.totalOrden = totalOrden;
+		this.subtotal = subtotal;
 		this.mesa = mesa;
 		this.sucursal = sucursal;
-		this.estadoOrden = estadoOrden;
-		this.idEmpleado = idEmpleado;
+		this.idEstado = idEstado;
+		this.mesero = mesero;
 	}
 
 	public Long getIdOrden() {
@@ -51,12 +51,12 @@ public class Orden {
 		this.idOrden = idOrden;
 	}
 
-	public Integer getTotalOrden() {
-		return totalOrden;
+	public Integer getSubtotal() {
+		return subtotal;
 	}
 
-	public void setTotalOrden(Integer totalOrden) {
-		this.totalOrden = totalOrden;
+	public void setSubtotal(Integer subtotal) {
+		this.subtotal = subtotal;
 	}
 
 	public Mesa getMesa() {
@@ -75,20 +75,20 @@ public class Orden {
 		this.sucursal = sucursal;
 	}
 
-	public EstadoOrden getEstadoOrden() {
-		return estadoOrden;
+	public EstadoOrden getIdEstado() {
+		return idEstado;
 	}
 
-	public void setEstadoOrden(EstadoOrden estadoOrden) {
-		this.estadoOrden = estadoOrden;
+	public void setIdEstado(EstadoOrden idEstado) {
+		this.idEstado = idEstado;
 	}
 
-	public Empleados getIdEmpleado() {
-		return idEmpleado;
+	public Empleados getMesero() {
+		return mesero;
 	}
 
-	public void setIdEmpleado(Empleados idEmpleado) {
-		this.idEmpleado = idEmpleado;
+	public void setMesero(Empleados mesero) {
+		this.mesero = mesero;
 	}
 	
 	

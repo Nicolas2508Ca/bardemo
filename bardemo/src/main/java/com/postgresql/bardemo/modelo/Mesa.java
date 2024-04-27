@@ -7,18 +7,18 @@ import jakarta.persistence.*;
 public class Mesa {
 	
 	@Id
-	@Column(name = "Id_Mesa")
+	@Column(name = "idmesa")
 	private Integer idMesa;
 	
-	@Column(name = "Nombre_Mesa", length = 10)
+	@Column(name = "nombremesa", length = 10)
 	private String nombreMesa;
-	@Column(name = "Puesto_mesa", length = 2)
+	@Column(name = "puestomesa", length = 2)
 	private Integer puestosMesa;
 	@ManyToOne
-	@JoinColumn(name = "Sucursal", foreignKey = @ForeignKey(name = "mesa_idSucursal_fkey"))
+	@JoinColumn(name = "sucursal", foreignKey = @ForeignKey(name = "mesa_idSucursal_fkey"))
 	private Sucursales idSucursal;
 	@ManyToOne()
-	@JoinColumn(name = "Estado", foreignKey = @ForeignKey(name = "mesa_idEstdoMesa_fkey"))
+	@JoinColumn(name = "estado", foreignKey = @ForeignKey(name = "mesa_idEstdoMesa_fkey"))
 	private EstadoMesa idEstadoMesa;
 	
 	public Mesa() {

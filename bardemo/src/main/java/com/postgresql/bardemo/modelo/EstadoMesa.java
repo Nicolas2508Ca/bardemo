@@ -6,10 +6,10 @@ import jakarta.persistence.*;
 @Table(name = "Estado_Mesa")
 public class EstadoMesa {
 	@Id
-	@Column(name = "Id_EstadoMesa", length = 1)
+	@Column(name = "idestadomesa", length = 1)
 	private Integer idEstadoMesa;
 	
-	@Column(name = "Nombre_EstadoMesa", length = 50, nullable = false)
+	@Column(name = "nombreestadomesa", length = 50, nullable = false)
 	private String nombreEstadoMesa;
 	
 	public EstadoMesa() {

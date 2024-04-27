@@ -39,13 +39,14 @@ public class SucursalesController {
     }
 }
     @PostMapping
-    public ResponseEntity<Sucursales> createSucursal(@RequestBody Sucursales sucursal, @CookieValue(name = "rol", required = false) String valorRol) {
+    public ResponseEntity<Sucursales> createSucursal(@RequestBody Sucursales sucursal) {
     	System.out.println(sucursal.getIdSucursal());
-    	if("1".equals(valorRol)) {
+    	try{
     		sucursalesRepo.save(sucursal);
     		return ResponseEntity.ok(sucursal);    		
+    	}catch(Exception e) {
+    		return ResponseEntity.badRequest().build();
     	}
-    	return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/{id}")
