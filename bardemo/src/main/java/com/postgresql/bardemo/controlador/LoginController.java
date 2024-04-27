@@ -51,10 +51,10 @@ public class LoginController {
                 response.addCookie(cookie);
                 responseData.put("mensaje", "Inicio de sesión exitoso mesero");
             }
-            if(empleados.getIdRol().getIdRol() == 3){
-                
-                responseData.put("mensaje", "Inicio de sesión exitoso cajero");
+            if(empleados.getIdRol().getIdRol() == 3) {
+            	responseData.put("mensaje", "Inicio de sesión exitoso cajero");
             }
+            
             return ResponseEntity.ok(responseData);
         } else {
             return ResponseEntity.badRequest().body(Collections.singletonMap("mensaje", "Usuario o contraseña incorrecta"));

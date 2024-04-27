@@ -38,12 +38,14 @@ public class ExistenciasSucursalController {
 	
 	@PostMapping("")
 	public ResponseEntity<ExistenciasSucursal> alimentarInventario(
-			@RequestBody ExistenciasSucursal existenciasSucursal, @CookieValue(name = "rol", required = true) String valorRol){
-		if("1".equals(valorRol)) {
+			@RequestBody ExistenciasSucursal existenciasSucursal){
+		try{
 			existenciasRepo.save(existenciasSucursal);
 			return ResponseEntity.ok(existenciasSucursal);
+		}catch(Exception e){
+			System.out.println(e);
+			return ResponseEntity.badRequest().build();
 		}
-		return ResponseEntity.badRequest().build();
 	}
 	
 	@PatchMapping("/{idExistencia}")

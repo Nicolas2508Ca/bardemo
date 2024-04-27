@@ -7,7 +7,12 @@ import jakarta.persistence.*;
 public class Mesa {
 	
 	@Id
+<<<<<<< HEAD
 	@Column(name = "idmesa")
+=======
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Id_Mesa")
+>>>>>>> 1f4be43f3f3fd592c9bd160e87a62bb9be1f5fe3
 	private Integer idMesa;
 	
 	@Column(name = "nombremesa", length = 10)

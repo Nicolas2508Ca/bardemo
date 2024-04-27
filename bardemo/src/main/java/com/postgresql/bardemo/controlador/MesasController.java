@@ -41,7 +41,7 @@ public class MesasController {
 		}
 	}
 	
-	@PostMapping("mesas")
+	@PostMapping("")
 	public ResponseEntity<Mesa> crearMesa(@RequestBody Mesa mesa){
 		try {
 			mesaRepo.save(mesa);
