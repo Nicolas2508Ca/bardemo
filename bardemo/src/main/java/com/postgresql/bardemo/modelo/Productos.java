@@ -8,10 +8,11 @@ public class Productos {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idproducto")
 	private Integer idProducto;
-	@Column(name = "Nombre_Producto", length = 100, nullable = false)
+	@Column(name = "nombreproducto", length = 100, nullable = false)
 	private String nombreProducto;
-	@Column(name = "Precio_Producto", nullable = false)
+	@Column(name = "precioproducto", nullable = false)
 	private Integer precioProducto;
 	
 	public Productos() {

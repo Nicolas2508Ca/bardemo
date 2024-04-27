@@ -45,9 +45,6 @@ public class Empleados {
 
     public Empleados() {}
     
-    
-
-
 	public Empleados(Integer documento, String nombre, String apellido, String email, String telefono,
 			String contrasenia, Rol idRol, TipoDocumento idTipoDoc, Sucursales idSucursal) {
 		super();
@@ -61,9 +58,6 @@ public class Empleados {
 		this.idTipoDoc = idTipoDoc;
 		this.idSucursal = idSucursal;
 	}
-
-
-
 
 	public String getContrasenia() {
         return this.contrasenia;

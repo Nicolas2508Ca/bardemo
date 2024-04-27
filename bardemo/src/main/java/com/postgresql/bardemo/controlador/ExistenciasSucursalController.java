@@ -50,15 +50,12 @@ public class ExistenciasSucursalController {
 	
 	@PatchMapping("/{idExistencia}")
 	public ResponseEntity<ExistenciasSucursal> modificarInventario(
-			@RequestBody ExistenciasSucursal existenciasSucursalActualizada, @CookieValue(name = "rol", required = true) String valorRol,
-			@PathVariable Long idExistencia){
-		if("1".equals(valorRol) || "2".equals(valorRol)) {
-			ExistenciasSucursal existenciaExistente =  existenciasRepo.findById(idExistencia)
-					.orElseThrow(() -> new ResourceNotFoundException("No existese ese item de inventario"));
-			actualizarObjeto.actualizarObjeto(existenciasSucursalActualizada, existenciaExistente);
-			final ExistenciasSucursal existenciaActualizadaFinal = existenciasRepo.save(existenciaExistente);
-			return ResponseEntity.ok(existenciaActualizadaFinal);
-		}
-		return ResponseEntity.badRequest().build();
+		@RequestBody ExistenciasSucursal existenciasSucursalActualizada,
+		@PathVariable Long idExistencia){
+	    ExistenciasSucursal existenciaExistente =  existenciasRepo.findById(idExistencia)
+		    .orElseThrow(() -> new ResourceNotFoundException("No existese ese item de inventario"));
+	    actualizarObjeto.actualizarObjeto(existenciasSucursalActualizada, existenciaExistente);
+	    final ExistenciasSucursal existenciaActualizadaFinal = existenciasRepo.save(existenciaExistente);
+	    return ResponseEntity.ok(existenciaActualizadaFinal);
 	}
 }

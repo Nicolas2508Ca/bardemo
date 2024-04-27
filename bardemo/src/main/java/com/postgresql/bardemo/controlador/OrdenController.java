@@ -112,11 +112,11 @@ public class OrdenController {
 			Map<String, Object> response = new HashMap<>();
 			
 			response.put("idOrden", orden.getIdOrden());
-			response.put("totalOrden", orden.getTotalOrden());
+			response.put("totalOrden", orden.getSubtotal());
 			response.put("mesa", orden.getMesa());
-			response.put("sucursal", orden.getIdOrden());
-			response.put("estadoOrden", orden.getEstadoOrden());
-			response.put("idEmpleado", orden.getIdEmpleado());
+			response.put("sucursal", orden.getIdOrden()); 
+			response.put("estadoOrden", orden.getIdEstado());
+			response.put("idEmpleado", orden.getMesero());
 			response.put("detalles", detalles);
 			
 			return ResponseEntity.ok(response);
