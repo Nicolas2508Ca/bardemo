@@ -19,5 +19,7 @@ public interface MesaRepo extends JpaRepository<Mesa, Integer>{
 	//@Procedure(procedureName = "obtener_mesas_por_sucursal")
 	@Query("SELECT m FROM Mesa m WHERE m.idSucursal.idSucursal = :idSucursal")
 	List<Mesa> findByIdSucursal(@Param("idSucursal") Integer idSucursal);
+	@Query("SELECT m FROM Mesa m WHERE m.idSucursal.idSucursal = :idSucursal AND m.idEstadoMesa.idEstadoMesa = 2")
+	List<Mesa> findMesasOcupadas(@Param("idSucursal") Integer idSucursal);
 	Optional<Mesa> findByIdMesa(Integer idMesa);
 }

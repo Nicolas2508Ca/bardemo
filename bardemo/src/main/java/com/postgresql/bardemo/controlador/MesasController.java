@@ -63,5 +63,14 @@ public class MesasController {
         final Mesa mesaActualizadaFinal = mesaRepo.save(mesaExistente);
         return ResponseEntity.ok(mesaActualizadaFinal);
 	}
+	@GetMapping("/cajero/{idSucursal}")
+	public ResponseEntity<List<Mesa>> obtenerMesasOcupadas(@PathVariable Integer idSucursal){
+		List<Mesa> mesas = mesaRepo.findMesasOcupadas(idSucursal);
+		if(!mesas.isEmpty()) {
+			return ResponseEntity.ok(mesas);
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	
 }

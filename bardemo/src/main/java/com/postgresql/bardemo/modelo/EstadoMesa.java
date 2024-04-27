@@ -26,6 +26,10 @@ public class EstadoMesa {
 		return nombreEstadoMesa;
 	}
 	
+	public void setIdEstadoMesa(Integer idEstadoMesa) {
+		this.idEstadoMesa = idEstadoMesa;
+	}
+	
 	
 	
 }
