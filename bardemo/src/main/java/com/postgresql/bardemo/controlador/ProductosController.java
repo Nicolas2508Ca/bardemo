@@ -39,12 +39,14 @@ public class ProductosController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Productos> crearProductos(@RequestBody Productos producto, @CookieValue(name = "rol", required = true) String valorRol){
-		if("1".equals(valorRol)) {
+	public ResponseEntity<Productos> crearProductos(@RequestBody Productos producto){
+		try{
 			productosRepo.save(producto);
 			return ResponseEntity.ok(producto);
+		}catch(Exception e) {
+			System.out.println(e);
+			return ResponseEntity.badRequest().build();
 		}
-		return ResponseEntity.badRequest().build();
 	}
 	
 	@PatchMapping("/{idProducto}")

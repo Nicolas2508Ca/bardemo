@@ -48,14 +48,15 @@ public class OrdenController {
 		Orden orden = new Orden();
 		Mesa mesaExistente = mesaRepo.findById(request.getMesa().getIdMesa())
 				.orElseThrow(() -> new ResourceNotFoundException("Mesa no encontrada"));
+		mesaExistente.setIdEstadoMesa(request.getMesa().getIdEstadoMesa());
 		actualizarObjeto.actualizarObjeto(request.getMesa(), mesaExistente);
 		mesaRepo.save(mesaExistente);
 		Empleados empleado = empleadoRepo.findByDocumento(request.getEmpleado().getDocumento())
 				.orElseThrow(() -> new ResourceNotFoundException("Empleado no encontrado con id " + request.getEmpleado().getDocumento()));
 		orden.setMesa(request.getMesa());
 		orden.setSucursal(request.getSucursal());
-		orden.setIdEmpleado(empleado);
-		orden.setEstadoOrden(request.getEstadoOrden());
+		orden.setMesero(empleado);
+		orden.setIdEstado(request.getEstadoOrden());
 		orden = ordenRepo.save(orden);
 		
 		Integer totalOrden = 0;
@@ -75,7 +76,7 @@ public class OrdenController {
 			detalleOrdenRepo.save(detalleOrden);
 			
 		}
-		orden.setTotalOrden(totalOrden);
+		orden.setSubtotal(totalOrden);
 		ordenRepo.save(orden);
 		
 		return ResponseEntity.ok(orden);
@@ -84,6 +85,7 @@ public class OrdenController {
 	@PatchMapping("/pagar/{idOrden}")
 	public ResponseEntity<?> pagarOrden(@PathVariable Long idOrden, @RequestBody Orden ordenPagada){
 		try {
+			System.out.println(ordenPagada.getMesa().getNombreMesa());
 			Orden orden = ordenRepo.findById(idOrden)
 	                .orElseThrow(() -> new ResourceNotFoundException("Orden no encontrada"));
 	        Mesa mesa = mesaRepo.findById(orden.getMesa().getIdMesa())
@@ -97,7 +99,8 @@ public class OrdenController {
 	        final Orden ordenActualizada = ordenRepo.save(orden);
 	        return ResponseEntity.ok(ordenActualizada);
 		}catch(Exception e) {
-			return ResponseEntity.badRequest().body(e);
+			System.out.println(e);
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
@@ -105,7 +108,7 @@ public class OrdenController {
 	public ResponseEntity<?> obtenerOrdenes(@PathVariable Integer idMesa){
 		Mesa mesa = mesaRepo.findById(idMesa)
 				.orElseThrow(() -> new ResourceNotFoundException(""));
-		Optional<Orden> ordenOpt = ordenRepo.findByMesa(mesa);
+		Optional<Orden> ordenOpt = ordenRepo.findByMesa(mesa.getIdMesa());
 		if(ordenOpt.isPresent()) {
 			Orden orden = ordenOpt.get();
 			List<DetalleOrden> detalles = detalleOrdenRepo.findByOrden(orden);

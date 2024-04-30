@@ -31,6 +31,11 @@ public class EstadoOrden {
 
 	public String getNombreEstado() {
 		return nombreEstado;
+	
+	}
+	
+	public void setIdEstado(Integer idEstado) {
+		this.idEstado = idEstado;
 	}
 	
 	

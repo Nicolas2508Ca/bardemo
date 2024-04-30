@@ -47,6 +47,7 @@ public class MesasController {
 			mesaRepo.save(mesa);
 			return ResponseEntity.ok(mesa);
 		}catch(Exception e) {
+			System.out.println(e);
 			return ResponseEntity.badRequest().build();
 		}
 	}

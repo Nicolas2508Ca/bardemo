@@ -17,9 +17,9 @@ import com.postgresql.bardemo.modelo.Sucursales;
 public interface MesaRepo extends JpaRepository<Mesa, Integer>{
 	
 	//@Procedure(procedureName = "obtener_mesas_por_sucursal")
-	@Query("SELECT m FROM Mesa m WHERE m.idSucursal.idSucursal = :idSucursal")
+	@Query("SELECT m FROM Mesa m WHERE m.idSucursal.idSucursal = :idSucursal AND m.idEstadoMesa.idEstadoMesa = 1")
 	List<Mesa> findByIdSucursal(@Param("idSucursal") Integer idSucursal);
-	@Query("SELECT m FROM Mesa m WHERE m.idSucursal.idSucursal = :idSucursal AND m.idEstadoMesa.idEstadoMesa = 2")
+	@Query("SELECT m FROM Mesa m, Orden o WHERE m.idSucursal.idSucursal = :idSucursal AND m.idEstadoMesa.idEstadoMesa = 2 AND o.idEstado.idEstado = 1")
 	List<Mesa> findMesasOcupadas(@Param("idSucursal") Integer idSucursal);
 	Optional<Mesa> findByIdMesa(Integer idMesa);
 }
