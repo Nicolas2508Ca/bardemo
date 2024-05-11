@@ -10,6 +10,7 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +42,7 @@ public class MesasController {
 		}
 	}
 	
-	@PostMapping("")
+	@PostMapping
 	public ResponseEntity<Mesa> crearMesa(@RequestBody Mesa mesa){
 		try {
 			mesaRepo.save(mesa);
@@ -52,7 +53,7 @@ public class MesasController {
 		}
 	}
 	
-	@PatchMapping("mesas/actualizar/{idMesa}")
+	@PatchMapping("/actualizar/{idMesa}")
 	public ResponseEntity<Mesa> actualizarMesa(@PathVariable Integer idMesa, @RequestBody Mesa mesaActualizada){
 		Mesa mesaExistente = mesaRepo.findById(idMesa)
                 .orElseThrow(() -> new ResourceNotFoundException("Mesa no encontrada con el ID: " + idMesa));
@@ -72,6 +73,21 @@ public class MesasController {
 		}else {
 			return ResponseEntity.notFound().build();
 		}
+	}
+
+	@DeleteMapping("/{idMesa}")
+	public ResponseEntity<Void> eliminarMesa(@PathVariable Integer idMesa) {
+		Mesa mesaExistente = mesaRepo.findById(idMesa)
+				.orElseThrow(() -> new ResourceNotFoundException("Mesa no encontrada con el ID: " + idMesa));
+		mesaRepo.delete(mesaExistente);
+		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/mesa/{idMesa}")
+	public ResponseEntity<Mesa> obtenerMesa(@PathVariable Integer idMesa){
+		Mesa mesa = mesaRepo.findById(idMesa)
+				.orElseThrow(() -> new ResourceNotFoundException("Mesa no encontrada con el ID: " + idMesa));
+		return ResponseEntity.ok(mesa);
 	}
 	
 }
