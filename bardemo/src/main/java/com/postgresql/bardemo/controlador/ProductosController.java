@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,14 +51,26 @@ public class ProductosController {
 	}
 	
 	@PatchMapping("/{idProducto}")
-	public ResponseEntity<Productos> modificarProducto(@PathVariable Integer idProducto, @RequestBody Productos productoActualizado, @CookieValue(name = "rol", required = true) String valorRol){
-		if("1".equals(valorRol) || "3".equals(valorRol)) {
-			Productos productoExistente = productosRepo.findById(idProducto)
-					.orElseThrow(() -> new ResourceNotFoundException("No existe tal producto con id " + idProducto));
-			actualizarObjeto.actualizarObjeto(productoActualizado, productoExistente);
-			final Productos productoActualizadoFinal = productosRepo.save(productoExistente);
-			return ResponseEntity.ok(productoActualizadoFinal);
-		}
-		return ResponseEntity.badRequest().build();
+	public ResponseEntity<Productos> modificarProducto(@PathVariable Integer idProducto, @RequestBody Productos productoActualizado){
+		Productos productoExistente = productosRepo.findById(idProducto)
+				.orElseThrow(() -> new ResourceNotFoundException("No existe tal producto con id " + idProducto));
+		actualizarObjeto.actualizarObjeto(productoActualizado, productoExistente);
+		final Productos productoActualizadoFinal = productosRepo.save(productoExistente);
+		return ResponseEntity.ok(productoActualizadoFinal);
+	}
+
+	@DeleteMapping("/eliminar/{idProducto}")
+	public ResponseEntity<Void> eliminarProducto(@PathVariable Integer idProducto) {
+		Productos productoExistente = productosRepo.findById(idProducto)
+				.orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con el ID: " + idProducto));
+		productosRepo.delete(productoExistente);
+		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/producto/{idProducto}")
+	public ResponseEntity<Productos> obtenerProducto(@PathVariable Integer idProducto){
+		Productos producto = productosRepo.findById(idProducto)
+				.orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con el ID: " + idProducto));
+		return ResponseEntity.ok(producto);
 	}
 }
