@@ -1,5 +1,7 @@
 package com.postgresql.bardemo.modelo;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -10,6 +12,9 @@ public class Orden {
 	@Column(name = "idorden")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idOrden;
+	
+	@Column(name = "fechaventa")
+	private LocalDateTime fechaVenta;	
 	
 	@Column(name = "subtotal")
 	private Integer subtotal;
@@ -30,10 +35,22 @@ public class Orden {
 	@JoinColumn(name = "mesero", foreignKey = @ForeignKey(name = "orden_documento_fkey"))
 	private Empleados mesero;
 	
+	@PrePersist
+	public void prePersist() {
+		if(this.fechaVenta == null) {
+			this.fechaVenta = LocalDateTime.now();
+		}
+	}
+	
+	@PreUpdate
+	public void preUpdate() {
+		this.fechaVenta = LocalDateTime.now();
+	}
+	
 	public Orden() {}
 
 	public Orden(Long idOrden, Integer subtotal, Mesa mesa, Sucursales sucursal, EstadoOrden idEstado,
-			Empleados mesero) {
+			Empleados mesero, LocalDateTime fechaVenta) {
 		super();
 		this.idOrden = idOrden;
 		this.subtotal = subtotal;
@@ -41,6 +58,7 @@ public class Orden {
 		this.sucursal = sucursal;
 		this.idEstado = idEstado;
 		this.mesero = mesero;
+		this.fechaVenta = fechaVenta;
 	}
 
 	public Long getIdOrden() {
@@ -89,6 +107,14 @@ public class Orden {
 
 	public void setMesero(Empleados mesero) {
 		this.mesero = mesero;
+	}
+
+	public LocalDateTime getFechaVenta() {
+		return fechaVenta;
+	}
+
+	public void setFechaVenta(LocalDateTime fechaVenta) {
+		this.fechaVenta = fechaVenta;
 	}
 	
 	
