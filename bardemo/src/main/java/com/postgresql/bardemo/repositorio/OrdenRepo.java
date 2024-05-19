@@ -27,11 +27,30 @@ public interface OrdenRepo extends JpaRepository<Orden, Long>{
 	           + "WHERE o.sucursal.idSucursal = :idSucursal AND  o.fechaVenta BETWEEN :fechaInicio AND :fechaFin "
 	           + "GROUP BY o.idOrden, od.idDetalle, od.producto "
 	           + "ORDER BY SUM(od.cantidad) DESC")
-	    List<Object[]> findByFechaVentaBetween(@Param("fechaInicio") LocalDateTime fechaInicio, @Param("fechaFin") LocalDateTime fechaFin, @Param("idSucursal") Integer idSucursal);
+	 List<Object[]> findByFechaVentaBetween(@Param("fechaInicio") LocalDateTime fechaInicio, @Param("fechaFin") LocalDateTime fechaFin, @Param("idSucursal") Integer idSucursal);
 	    @Query("SELECT o, od, od.producto, o.subtotal, SUM(od.cantidad) AS cantidad "
 		           + "FROM Orden o INNER JOIN DetalleOrden od ON o.idOrden = od.orden.idOrden "
 		           + "WHERE o.fechaVenta BETWEEN :fechaInicio AND :fechaFin "
 		           + "GROUP BY o.idOrden, od.idDetalle, od.producto "
 		           + "ORDER BY SUM(od.cantidad) DESC")
-		    List<Object[]> findByFechaVentaBetween(@Param("fechaInicio") LocalDateTime fechaInicio, @Param("fechaFin") LocalDateTime fechaFin);
+	List<Object[]> findByFechaVentaBetween(@Param("fechaInicio") LocalDateTime fechaInicio, @Param("fechaFin") LocalDateTime fechaFin);
+	@Query("SELECT o, SUM(o.subtotal) as total"
+			+ " FROM Orden o"
+			+ " WHERE o.sucursal.idSucursal = :idSucursal AND  o.fechaVenta BETWEEN :fechaInicio AND :fechaFin "
+			+ " GROUP BY o.idOrden")
+	List<Object[]> totalOrdenes(@Param("fechaInicio") LocalDateTime fechaInicio, @Param("fechaFin") LocalDateTime fechaFin, @Param("idSucursal")Integer idSucursal);
+	
+	@Query("SELECT p.nombreProducto, p.precioCompra, p.precioProducto, SUM(d.cantidad) as totalVendido, " +
+	           "SUM(d.cantidad * p.precioProducto) as totalVentas, " +
+	           "SUM(d.cantidad * p.precioProducto) - SUM(d.cantidad * p.precioCompra) as ganancia " +
+	           "FROM DetalleOrden d " +
+	           "INNER JOIN d.producto p " +
+	           "INNER JOIN d.orden o " +
+	           "WHERE o.sucursal.idSucursal = :idSucursal AND  o.fechaVenta BETWEEN :fechaInicio AND :fechaFin " +
+	           "GROUP BY p.nombreProducto, p.precioCompra, p.precioProducto " +
+	           "ORDER BY totalVendido DESC " +
+	           "LIMIT 1")
+	    List<Object[]> gananciaProductos(@Param("fechaInicio") LocalDateTime fechaInicio, @Param("fechaFin") LocalDateTime fechaFin, @Param("idSucursal") Integer idSucursal);
+	
+	
 }

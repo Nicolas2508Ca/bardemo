@@ -12,6 +12,8 @@ public class Productos {
 	private Integer idProducto;
 	@Column(name = "nombreproducto", length = 100, nullable = false)
 	private String nombreProducto;
+	@Column(name = "precioCompra")
+	private Integer precioCompra;
 	@Column(name = "precioproducto", nullable = false)
 	private Integer precioProducto;
 	
@@ -19,11 +21,12 @@ public class Productos {
 		
 	}
 
-	public Productos(Integer idProducto, String nombreProducto, Integer precioProducto) {
+	public Productos(Integer idProducto, String nombreProducto, Integer precioProducto, Integer precioCompra) {
 		super();
 		this.idProducto = idProducto;
 		this.nombreProducto = nombreProducto;
 		this.precioProducto = precioProducto;
+		this.precioCompra = precioCompra;
 	}
 
 	public Integer getIdProducto() {
@@ -50,4 +53,10 @@ public class Productos {
 		this.precioProducto = precioProducto;
 	}
 	
+	public Integer getPrecioCompra() {
+		return precioCompra;
+	}
+	public void setPrecioCompra(Integer precioCompra) {
+		this.precioCompra = precioCompra;
+	}
 }

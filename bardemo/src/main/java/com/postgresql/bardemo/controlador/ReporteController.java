@@ -37,7 +37,6 @@ public class ReporteController {
 	
 	@PostMapping("/descargar")
 	public ResponseEntity<byte[]> generarYDescargarReporte(@RequestBody RangoFechasDTO fechaBusqueda) {
-		System.out.println("Ejecutaaa");
 	    try {
 	    	System.out.println(fechaBusqueda.getFechaInicio());
 	    	System.out.println(fechaBusqueda.getFechaFinal());
@@ -46,7 +45,6 @@ public class ReporteController {
 	        Date fechaFin = formatter.parse(fechaBusqueda.getFechaFinal());
 
 	        byte[] archivoBytes = exportar.exportarExcel(fechaInicio, fechaFin, fechaBusqueda.getIdSucursal());
-
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 	        headers.setContentDispositionFormData("attachment", "reporte.xls");
