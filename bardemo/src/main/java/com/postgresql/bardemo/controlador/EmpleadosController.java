@@ -54,9 +54,6 @@ public class EmpleadosController {
     	Empleados empleadoExistente = empleadosRepo.findByDocumento(idEmpleado)
     			.orElseThrow(() -> new ResourceNotFoundException("No se ha encontrado empleado con documento " + idEmpleado));
     	actualizarObjeto.actualizarObjeto(empleadoActualizado, empleadoExistente);
-        System.out.println(empleadoActualizado.getIdRol().getIdRol());
-        System.out.println(empleadoActualizado.getIdSucursal().getIdSucursal());
-        System.out.println(empleadoActualizado.getIdTipoDoc().getIdTipoDoc());
     	final Empleados empleadoActualizadoFinal = empleadosRepo.save(empleadoExistente);
     	return ResponseEntity.ok(empleadoActualizadoFinal);
     }
